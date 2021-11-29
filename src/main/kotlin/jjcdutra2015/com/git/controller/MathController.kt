@@ -1,4 +1,4 @@
-package jjcdutra2015.com.git
+package jjcdutra2015.com.git.controller
 
 import jjcdutra2015.com.git.converters.convertToDouble
 import jjcdutra2015.com.git.converters.isNumeric
