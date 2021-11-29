@@ -1,7 +1,7 @@
 package jjcdutra2015.com.git.handler
 
 import jjcdutra2015.com.git.exception.ExceptionResponse
-import jjcdutra2015.com.git.exception.UnsupportedMathOperationException
+import jjcdutra2015.com.git.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -21,7 +21,7 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
         return ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    @ExceptionHandler(UnsupportedMathOperationException::class)
+    @ExceptionHandler(ResourceNotFoundException::class)
     fun handleBadRequestException(ex: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
         val exceptionResponse = ExceptionResponse(LocalDate.now(), ex.message.toString(), request.getDescription(false))
         return ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST)

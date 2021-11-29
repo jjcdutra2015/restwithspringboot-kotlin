@@ -1,47 +1,44 @@
 package jjcdutra2015.com.git.service
 
+import jjcdutra2015.com.git.exception.ResourceNotFoundException
 import jjcdutra2015.com.git.model.Person
+import jjcdutra2015.com.git.repository.PersonRepository
 import org.springframework.stereotype.Service
-import java.util.concurrent.atomic.AtomicLong
 
 @Service
-class PersonService {
-
-    private val counter: AtomicLong = AtomicLong()
+class PersonService(
+    private val repository: PersonRepository
+) {
 
     fun create(person: Person): Person {
-        return person
-    }
-
-    fun update(person: Person): Person {
-        return person
-    }
-
-    fun delete(id: String) {
-    }
-
-    fun findById(id: String): Person {
-        return Person(
-            id = counter.incrementAndGet(),
-            firstName = "Julio",
-            lastName = "Dutra",
-            address = "Carmo - Rio de Janeiro - Brasil",
-            gender = "Male"
-        )
+        return repository.save(person)
     }
 
     fun findAll(): List<Person> {
-        val persons: ArrayList<Person> = ArrayList()
-        for (i in 1..7) {
-            val person = Person(
-                id = counter.incrementAndGet(),
-                firstName = "First Name $i",
-                lastName = "Last Name $i",
-                address = "Carmo $i",
-                gender = "Male"
-            )
-            persons.add(person)
-        }
-        return persons
+        return repository.findAll()
+    }
+
+    fun findById(id: Long): Person {
+        return repository.findById(id).orElseThrow { ResourceNotFoundException("No records found for this ID: $id") }
+    }
+
+    fun update(person: Person): Person {
+        var entity = repository.findById(person.id)
+            .orElseThrow { ResourceNotFoundException("No records found for this ID: ${person.id}") }
+
+        entity.copy(
+            firstName = person.firstName,
+            lastName = person.lastName,
+            address = person.address,
+            gender = person.gender
+        )
+
+        return repository.save(entity)
+    }
+
+    fun delete(id: Long) {
+        val entity =
+            repository.findById(id).orElseThrow { ResourceNotFoundException("No records found for this ID: $id") }
+        repository.delete(entity)
     }
 }
