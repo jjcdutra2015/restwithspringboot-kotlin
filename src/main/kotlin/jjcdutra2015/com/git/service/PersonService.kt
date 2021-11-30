@@ -26,12 +26,10 @@ class PersonService(
         var entity = repository.findById(person.id)
             .orElseThrow { ResourceNotFoundException("No records found for this ID: ${person.id}") }
 
-        entity.copy(
-            firstName = person.firstName,
-            lastName = person.lastName,
-            address = person.address,
-            gender = person.gender
-        )
+        entity.firstName = person.firstName
+        entity.address = person.address
+        entity.gender = person.gender
+        entity.lastName = person.lastName
 
         return repository.save(entity)
     }

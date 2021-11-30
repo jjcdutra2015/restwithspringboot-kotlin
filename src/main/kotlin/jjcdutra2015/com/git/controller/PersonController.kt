@@ -12,7 +12,7 @@ class PersonController(
 ) {
 
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun findById(@PathVariable id: String): Person {
+    fun findById(@PathVariable id: Long): Person {
         return service.findById(id)
     }
 
@@ -35,13 +35,12 @@ class PersonController(
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-
     fun update(@RequestBody person: Person): Person {
         return service.update(person)
     }
 
-    @RequestMapping(value = ["/{id}"])
-    fun delete(@PathVariable id: String) {
+    @RequestMapping(value = ["/{id}"], method = [RequestMethod.DELETE])
+    fun delete(@PathVariable id: Long) {
         service.delete(id)
     }
 }
