@@ -1,6 +1,6 @@
 package jjcdutra2015.com.git.controller
 
-import jjcdutra2015.com.git.model.Person
+import jjcdutra2015.com.git.data.vo.PersonVO
 import jjcdutra2015.com.git.service.PersonService
 import org.springframework.web.bind.annotation.*
 
@@ -11,22 +11,22 @@ class PersonController(
 ) {
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): Person {
+    fun findById(@PathVariable id: Long): PersonVO {
         return service.findById(id)
     }
 
     @GetMapping
-    fun findAll(): List<Person> {
+    fun findAll(): List<PersonVO> {
         return service.findAll()
     }
 
     @PostMapping
-    fun create(@RequestBody person: Person): Person {
+    fun create(@RequestBody person: PersonVO): PersonVO {
         return service.create(person)
     }
 
     @PutMapping
-    fun update(@RequestBody person: Person): Person {
+    fun update(@RequestBody person: PersonVO): PersonVO {
         return service.update(person)
     }
 
