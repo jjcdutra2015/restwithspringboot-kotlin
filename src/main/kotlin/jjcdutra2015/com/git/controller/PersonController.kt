@@ -5,27 +5,33 @@ import jjcdutra2015.com.git.service.PersonService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 class PersonController(
     private val service: PersonService
 ) {
 
-    @GetMapping("/{id}")
+    @GetMapping(value = ["/{id}"], produces = ["application/json", "application/xml"])
     fun findById(@PathVariable id: Long): PersonVO {
         return service.findById(id)
     }
 
-    @GetMapping
+    @GetMapping(produces = ["application/json", "application/xml"])
     fun findAll(): List<PersonVO> {
         return service.findAll()
     }
 
-    @PostMapping
+    @PostMapping(
+        produces = ["application/json", "application/xml"],
+        consumes = ["application/json", "application/xml"]
+    )
     fun create(@RequestBody person: PersonVO): PersonVO {
         return service.create(person)
     }
 
-    @PutMapping
+    @PutMapping(
+        produces = ["application/json", "application/xml"],
+        consumes = ["application/json", "application/xml"]
+    )
     fun update(@RequestBody person: PersonVO): PersonVO {
         return service.update(person)
     }
