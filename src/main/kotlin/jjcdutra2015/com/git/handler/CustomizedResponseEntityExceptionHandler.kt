@@ -1,6 +1,7 @@
 package jjcdutra2015.com.git.handler
 
 import jjcdutra2015.com.git.exception.ExceptionResponse
+import jjcdutra2015.com.git.exception.InvalidJwtAuthenticationException
 import jjcdutra2015.com.git.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,6 +24,12 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
 
     @ExceptionHandler(ResourceNotFoundException::class)
     fun handleBadRequestException(ex: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
+        val exceptionResponse = ExceptionResponse(LocalDate.now(), ex.message.toString(), request.getDescription(false))
+        return ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException::class)
+    fun invalidJwtAuthenticationException(ex: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
         val exceptionResponse = ExceptionResponse(LocalDate.now(), ex.message.toString(), request.getDescription(false))
         return ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST)
     }
