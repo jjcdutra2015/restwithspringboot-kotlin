@@ -1,4 +1,4 @@
-package jjcdutra2015.com.git.security
+package jjcdutra2015.com.git.security.jwt
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
@@ -16,8 +16,7 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 
 @Service
-data class JwtTokenProvider(
-    @Autowired //É no construtor mesmo?
+class JwtTokenProvider @Autowired constructor(
     val userDetailsService: UserDetailsService,
 
     @Value("security.jwt.token.secret-key:secret")
@@ -26,7 +25,6 @@ data class JwtTokenProvider(
     @Value("security.jwt.token.expire-length:3600000")
     val validityInMilliseconds: Long = 3600000
 ) {
-    //@PostConstruct - Esse init já faz esse postConstruct?
     init {
         secretKey = Base64.getEncoder().encodeToString(secretKey.toByteArray())
     }
