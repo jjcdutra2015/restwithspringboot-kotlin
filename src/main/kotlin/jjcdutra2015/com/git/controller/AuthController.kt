@@ -22,7 +22,10 @@ class AuthController(
     private val repository: UserRepository,
     private val tokenProvider: JwtTokenProvider
 ) {
-    @PostMapping("/signin")
+    @PostMapping(
+        "/signin", produces = ["application/json", "application/xml"],
+        consumes = ["application/json", "application/xml"]
+    )
     fun signin(@RequestBody data: AccountsCredencialsVO): ResponseEntity<Any> {
         try {
             val username = data.username
