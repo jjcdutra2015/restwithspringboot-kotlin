@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 data class User(
 
     @Id

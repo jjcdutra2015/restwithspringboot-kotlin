@@ -30,7 +30,7 @@ class SwaggerConfig {
             "Some description about your API.",
             "v1",
             "Termos of service URL",
-            Contact("Julo", "git.com/jjcdutra2015", "email@email.com"),
+            Contact("Julio", "git.com/jjcdutra2015", "email@email.com"),
             "License of API",
             "License of terms",
             emptyList()

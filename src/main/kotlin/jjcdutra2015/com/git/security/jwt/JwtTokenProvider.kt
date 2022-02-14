@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServletRequest
 class JwtTokenProvider @Autowired constructor(
     val userDetailsService: UserDetailsService,
 
-    @Value("security.jwt.token.secret-key:secret")
+    @Value("\${security.jwt.token.secret-key:secret}")
     var secretKey: String = "secret",
 
-    @Value("security.jwt.token.expire-length:3600000")
+    @Value("\${security.jwt.token.expire-length:3600000}")
     val validityInMilliseconds: Long = 3600000
 ) {
     init {

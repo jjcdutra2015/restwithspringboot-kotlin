@@ -25,7 +25,7 @@ class AuthController(
     @PostMapping("/signin")
     fun signin(@RequestBody data: AccountsCredencialsVO): ResponseEntity<Any> {
         try {
-            val username = data.userName
+            val username = data.username
             val password = data.password
 
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username, password))

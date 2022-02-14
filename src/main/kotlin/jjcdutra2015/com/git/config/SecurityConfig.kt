@@ -21,7 +21,7 @@ class SecurityConfig(
     @Bean
     override fun authenticationManagerBean(): AuthenticationManager = super.authenticationManagerBean()
 
-    protected fun configurer(http: HttpSecurity) {
+    override fun configure(http: HttpSecurity) {
         http
             .httpBasic().disable()
             .csrf().disable()
